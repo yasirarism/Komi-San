@@ -7,11 +7,9 @@ except BaseException:
     REDIS_DB.set("KUKIBOT", "[]")
 
 def is_kuki(chat_id):
-    chat = nk.literal_eval(REDIS_DB.get("KUKIBOT"))	
+    chat = nk.literal_eval(REDIS_DB.get("KUKIBOT"))
     chat = list(chat)
-    if chat_id in chat:
-    	return True
-    return False
+    return chat_id in chat
 	   
 def set_kuki(chat_id):
     chat = nk.literal_eval(REDIS_DB.get("KUKIBOT"))

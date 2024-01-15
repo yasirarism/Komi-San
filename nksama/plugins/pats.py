@@ -12,12 +12,11 @@ from nksama.plugins.helpers import call_back_in_filter
 
 @bot.on_message(filters.command('pat'))
 def pat(_,message):
-    reply = message.reply_to_message
-    if reply:
+    if reply := message.reply_to_message:
         res = requests.get('https://some-random-api.ml/animu/pat').json()
         url = res['link']
         reply.reply_animation(url)
-        
+
     else:
         message.reply_animation(url)
 

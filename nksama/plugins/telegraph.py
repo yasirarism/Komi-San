@@ -11,8 +11,8 @@ def ul(_,message):
         path = reply.download()
         fk = upload_file(path)
         for x in fk:
-            url = "https://telegra.ph" + x
-        
+            url = f"https://telegra.ph{x}"
+
         message.reply_text(url)
 
 
