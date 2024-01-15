@@ -12,8 +12,7 @@ async def play(_,message):
     await musicbot.start()
   except:
     pass
-  reply = message.reply_to_message
-  if reply:
+  if reply := message.reply_to_message:
     fk = await message.reply('Downloading....')
     path = await reply.download()
     await calls.join(message.chat.id)
@@ -27,8 +26,7 @@ async def vplay(_,message):
     await musicbot.start()
   except:
     pass
-  reply = message.reply_to_message
-  if reply:
+  if reply := message.reply_to_message:
     path = await reply.download()
     await calls.join(message.chat.id)
     await calls.start_video(path , repeat=False)

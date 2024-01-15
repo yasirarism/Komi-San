@@ -22,10 +22,7 @@ def fk(_,query):
     soup = BeautifulSoup(res , "html.parser")
     titles = soup.find_all('span' , class_='wo_title')
     for x in titles:
-        if ani:
-            ani = f"{ani}\n{x}"
-        else:
-            ani = x
+        ani = f"{ani}\n{x}" if ani else x
     query.message.delete()
     query.message.reply(f'**Results for {anime_}**\n\n```{ani}```')
 
@@ -35,11 +32,15 @@ def watchorder(_,message):
     global anime_
     anime_ = message.text.replace(message.text.split(' ')[0] , '')
     res = get(f'https://chiaki.site/?/tools/autocomplete_series&term={anime_}').json()
-    keyboard = []
-    for x in res:
-        keyboard.append([InlineKeyboardButton(x['value'] , callback_data="fk:{}".format(x['id']))])
-
-    bot.send_message(message.chat.id , "results for {}".format(anime_) , reply_markup=InlineKeyboardMarkup(keyboard))
+    keyboard = [
+        [InlineKeyboardButton(x['value'], callback_data=f"fk:{x['id']}")]
+        for x in res
+    ]
+    bot.send_message(
+        message.chat.id,
+        f"results for {anime_}",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+    )
 
 
 help_message.append({"Module_Name": "extra"})
